@@ -6,10 +6,10 @@ from waflib.Errors import ConfigurationError
 
 def options(self):
     self.add_option(
-        '--with-amba', 
-        type='string', 
-        help='Basedir of your AmbaKit installation', 
-        dest='ambadir', 
+        '--with-amba',
+        type='string',
+        help='Basedir of your AmbaKit installation',
+        dest='ambadir',
         default=os.environ.get("AMBA_HOME")
     )
 
@@ -27,7 +27,7 @@ def find(self, path = None):
       includes      = incpath,
       use           = 'BOOST SYSTEMC TLM GREENSOCS',
       okmsg         = "ok",
-      errmsg        = 'AMBAKit not found please give the location with --amba=',
+      errmsg        = 'AMBAKit not found please give the location with --with-amba=',
       fragment      = '''
            #include <systemc.h>
            #include <tlm.h>
@@ -56,7 +56,7 @@ def find(self, path = None):
       use          = 'BOOST SYSTEMC TLM GREENSOCS AMBA',
       okmsg        = "ok",
     )
-    
+
 def configure(self):
     try:
         if self.options.ambadir:
@@ -69,7 +69,7 @@ def configure(self):
         try:
             self.dep_fetch(
                 name    = name,
-                version = version, 
+                version = version,
                 tar     = "amba_socket-1.0.15.tgz",
                 tar_url = "amba_socket-1.0.15.tgz",
                 base    = name,
